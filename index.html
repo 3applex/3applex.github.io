@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hxc免费跳转网页入口 - 轻量导航,极速直达</title>
+<meta name="description" content="hxc免费跳转网页入口是一站式轻量导航与跳转服务平台，聚合常用站点、热门工具与社区精选，提供稳定、免费、极速的网页直达体验。">
+<style>
+  :root{
+    --bg:#0b0f1a;
+    --bg-soft:#111829;
+    --card:#151d31;
+    --card-hover:#1b2540;
+    --line:rgba(255,255,255,.08);
+    --text:#e8edf7;
+    --muted:#93a0bb;
+    --primary:#39c6ff;
+    --primary-2:#6a7cff;
+    --accent:#ffb545;
+    --green:#37e0a3;
+    --radius:16px;
+    --shadow:0 18px 48px rgba(0,0,0,.45);
+    font-size:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  ul{list-style:none}
+  img,svg{display:block;max-width:100%}
+  ::selection{background:var(--primary);color:#04121b}
+
+  .wrap{width:min(1200px,92%);margin:0 auto}
+
+  /* ---------- 顶部导航 ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(11,15,26,.82);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+  .logo-mark{
+    width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    display:grid;place-items:center;color:#061321;font-size:15px;font-weight:900;
+    box-shadow:0 6px 20px rgba(57,198,255,.35);
+  }
+  .logo-text{font-size:1.05rem}
+  .logo-text small{display:block;font-size:.62rem;color:var(--muted);font-weight:400;letter-spacing:2px}
+
+  nav.links{display:flex;gap:26px;font-size:.92rem;color:var(--muted)}
+  nav.links a{transition:color .2s;position:relative}
+  nav.links a:hover{color:var(--text)}
+  nav.links a::after{
+    content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
+    background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .25s;
+  }
+  nav.links a:hover::after{width:100%}
+
+  .nav-cta{
+    padding:9px 20px;border-radius:999px;font-size:.88rem;font-weight:600;
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    color:#04121b;transition:transform .2s,box-shadow .2s;
+    box-shadow:0 6px 22px rgba(57,198,255,.3);
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(57,198,255,.45)}
+
+  .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    padding:86px 0 70px;
+    background:
+      radial-gradient(circle at 15% 10%,rgba(57,198,255,.16),transparent 45%),
+      radial-gradient(circle at 85% 0%,rgba(106,124,255,.18),transparent 45%),
+      radial-gradient(circle at 50% 100%,rgba(255,181,69,.08),transparent 50%);
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:56px 56px;
+    mask-image:radial-gradient(circle at 50% 30%,#000 0%,transparent 72%);
+    opacity:.4;pointer-events:none;
+  }
+  .hero-inner{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:999px;font-size:.78rem;
+    background:rgba(57,198,255,.1);border:1px solid rgba(57,198,255,.3);
+    color:var(--primary);margin-bottom:22px;letter-spacing:.5px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  h1{
+    font-size:clamp(2.1rem,4.6vw,3.35rem);
+    line-height:1.22;font-weight:800;letter-spacing:-.5px;
+    background:linear-gradient(120deg,#fff 15%,#a9d8ff 55%,#8f9dff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-sub{margin-top:20px;font-size:1.02rem;color:var(--muted);max-width:460px}
+  .hero-actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 26px;border-radius:12px;font-weight:600;font-size:.94rem;
+    transition:transform .2s,box-shadow .2s,background .2s;cursor:pointer;border:0;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#04121b;box-shadow:0 10px 30px rgba(57,198,255,.32)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(57,198,255,.46)}
+  .btn-ghost{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text)}
+  .btn-ghost:hover{background:rgba(255,255,255,.09);transform:translateY(-3px)}
+
+  .hero-stats{display:flex;gap:34px;margin-top:44px;flex-wrap:wrap}
+  .stat b{display:block;font-size:1.5rem;font-weight:800;color:#fff}
+  .stat span{font-size:.78rem;color:var(--muted);letter-spacing:1px}
+
+  /* 右侧跳转模拟卡片 */
+  .hero-visual{position:relative}
+  .jump-card{
+    background:linear-gradient(160deg,rgba(30,40,66,.95),rgba(17,24,41,.95));
+    border:1px solid var(--line);border-radius:22px;padding:22px;
+    box-shadow:var(--shadow);
+  }
+  .jump-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .jump-head .dots{display:flex;gap:6px}
+  .jump-head .dots i{width:10px;height:10px;border-radius:50%;background:#2a3550}
+  .jump-head .dots i:nth-child(1){background:#ff5f57}
+  .jump-head .dots i:nth-child(2){background:#febc2e}
+  .jump-head .dots i:nth-child(3){background:#28c840}
+  .jump-head span{font-size:.72rem;color:var(--muted);letter-spacing:1px}
+  .jump-input{
+    display:flex;align-items:center;gap:10px;
+    background:#0c1322;border:1px solid var(--line);border-radius:12px;
+    padding:12px 14px;margin-bottom:16px;
+  }
+  .jump-input code{font-size:.82rem;color:var(--muted);flex:1;overflow:hidden;white-space:nowrap}
+  .jump-input .go{
+    font-size:.76rem;padding:5px 14px;border-radius:8px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#04121b;font-weight:700;
+  }
+  .jump-list{display:grid;gap:9px}
+  .jump-item{
+    display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+    background:rgba(255,255,255,.03);border:1px solid transparent;
+    transition:background .2s,border-color .2s,transform .2s;
+  }
+  .jump-item:hover{background:rgba(57,198,255,.08);border-color:rgba(57,198,255,.25);transform:translateX(4px)}
+  .jump-icon{
+    width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+    font-size:.72rem;font-weight:800;color:#04121b;flex:none;
+  }
+  .jump-item b{font-size:.84rem;font-weight:600}
+  .jump-item small{display:block;font-size:.68rem;color:var(--muted);font-weight:400}
+  .jump-item .status{margin-left:auto;font-size:.66rem;color:var(--green);white-space:nowrap}
+
+  .float-tag{
+    position:absolute;right:-14px;top:-18px;
+    background:rgba(255,181,69,.12);border:1px solid rgba(255,181,69,.35);
+    color:var(--accent);font-size:.72rem;padding:6px 12px;border-radius:999px;
+    backdrop-filter:blur(6px);
+  }
+
+  /* ---------- 通用区块 ---------- */
+  section{padding:80px 0}
+  .sec-head{max-width:660px;margin-bottom:46px}
+  .sec-kicker{
+    font-size:.74rem;letter-spacing:3px;text-transform:uppercase;
+    color:var(--primary);font-weight:700;margin-bottom:12px;display:block;
+  }
+  .sec-head h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;line-height:1.32;letter-spacing:-.3px}
+  .sec-head p{margin-top:14px;color:var(--muted);font-size:.95rem}
+
+  /* ---------- 精选入口 ---------- */
+  .entries{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+  .filter-btn{
+    padding:8px 18px;border-radius:999px;font-size:.82rem;cursor:pointer;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--muted);
+    transition:all .2s;
+  }
+  .filter-btn:hover{color:var(--text);border-color:rgba(57,198,255,.4)}
+  .filter-btn.active{
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    color:#04121b;border-color:transparent;font-weight:700;
+  }
+  .entry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .entry-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;transition:transform .25s,border-color .25s,background .25s,box-shadow .25s;
+    position:relative;overflow:hidden;
+  }
+  .entry-card::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:linear-gradient(140deg,rgba(57,198,255,.1),transparent 45%);opacity:0;transition:opacity .25s;
+  }
+  .entry-card:hover{transform:translateY(-6px);border-color:rgba(57,198,255,.35);background:var(--card-hover);box-shadow:var(--shadow)}
+  .entry-card:hover::after{opacity:1}
+  .entry-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .entry-ico{
+    width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+    font-weight:800;color:#04121b;flex:none;font-size:.92rem;
+  }
+  .entry-card h3{font-size:1.02rem;font-weight:700}
+  .entry-card .cat{font-size:.7rem;color:var(--muted);letter-spacing:1px}
+  .entry-card p{font-size:.85rem;color:var(--muted);min-height:52px}
+  .entry-foot{
+    margin-top:16px;display:flex;align-items:center;justify-content:space-between;
+    font-size:.76rem;color:var(--muted);
+  }
+  .entry-go{color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:5px}
+  .entry-card:hover .entry-go{color:#fff}
+
+  /* ---------- 特性 ---------- */
+  .features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .feat{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 22px;transition:border-color .25s,transform .25s;
+  }
+  .feat:hover{border-color:rgba(57,198,255,.3);transform:translateY(-4px)}
+  .feat-ico{
+    width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;
+    background:rgba(57,198,255,.1);border:1px solid rgba(57,198,255,.2);
+  }
+  .feat h3{font-size:.98rem;margin-bottom:8px}
+  .feat p{font-size:.82rem;color:var(--muted)}
+
+  /* ---------- 性能/数字 ---------- */
+  .metrics{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .metrics-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .metric-list{display:grid;gap:22px}
+  .metric-row{display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .metric-row .label{font-size:.86rem;color:var(--muted)}
+  .metric-row .val{font-size:1.02rem;font-weight:700;color:#fff}
+  .bar{height:8px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;margin-top:8px}
+  .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--primary),var(--primary-2));width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+  .metric-block{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .metric-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;text-align:center;
+  }
+  .metric-card b{display:block;font-size:1.9rem;font-weight:800;background:linear-gradient(120deg,var(--primary),var(--primary-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .metric-card span{font-size:.76rem;color:var(--muted);letter-spacing:1px}
+
+  /* ---------- 使用流程 ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+  .step{
+    position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:28px 22px;counter-increment:step;
+  }
+  .step::before{
+    content:"0" counter(step);position:absolute;top:16px;right:18px;
+    font-size:1.6rem;font-weight:900;color:rgba(255,255,255,.06);
+  }
+  .step h3{font-size:.98rem;margin-bottom:8px}
+  .step p{font-size:.82rem;color:var(--muted)}
+  .step .line{width:34px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--primary),var(--primary-2));margin-bottom:16px}
+
+  /* ---------- 社区 ---------- */
+  .community{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .comm-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px}
+  .post{
+    display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);
+  }
+  .post:last-child{border-bottom:0}
+  .avatar{
+    width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:.8rem;font-weight:800;color:#04121b;
+  }
+  .post-body h4{font-size:.94rem;margin-bottom:4px}
+  .post-body p{font-size:.82rem;color:var(--muted)}
+  .post-meta{display:flex;gap:16px;margin-top:8px;font-size:.72rem;color:var(--muted)}
+  .side-panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;
+  }
+  .side-panel h3{font-size:1rem;margin-bottom:6px}
+  .side-panel .sub{font-size:.78rem;color:var(--muted);margin-bottom:20px}
+  .tag-cloud{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px}
+  .tag-cloud span{
+    font-size:.74rem;padding:6px 12px;border-radius:999px;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--muted);
+    transition:all .2s;cursor:default;
+  }
+  .tag-cloud span:hover{color:var(--primary);border-color:rgba(57,198,255,.4)}
+  .notify{display:flex;gap:10px}
+  .notify input{
+    flex:1;background:#0c1322;border:1px solid var(--line);border-radius:10px;
+    padding:11px 14px;color:var(--text);font-size:.85rem;outline:none;
+  }
+  .notify input:focus{border-color:rgba(57,198,255,.5)}
+  .notify button{
+    padding:0 18px;border-radius:10px;border:0;cursor:pointer;font-weight:700;font-size:.82rem;
+    background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#04121b;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{display:grid;gap:14px;max-width:840px}
+  .faq-item{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    transition:border-color .25s;
+  }
+  .faq-item.open{border-color:rgba(57,198,255,.35)}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:0;color:var(--text);
+    padding:18px 22px;font-size:.94rem;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .faq-q .plus{font-size:1.2rem;color:var(--primary);transition:transform .25s;flex:none}
+  .faq-item.open .plus{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq-a p{padding:0 22px 20px;font-size:.86rem;color:var(--muted)}
+
+  /* ---------- CTA ---------- */
+  .cta-band{
+    padding:70px 0;
+    background:
+      radial-gradient(circle at 20% 20%,rgba(57,198,255,.16),transparent 50%),
+      radial-gradient(circle at 80% 80%,rgba(106,124,255,.16),transparent 50%);
+    border-top:1px solid var(--line);
+  }
+  .cta-box{
+    background:linear-gradient(140deg,rgba(30,40,66,.9),rgba(17,24,41,.9));
+    border:1px solid var(--line);border-radius:22px;padding:52px;
+    display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap;
+    box-shadow:var(--shadow);
+  }
+  .cta-box h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;line-height:1.3}
+  .cta-box p{color:var(--muted);margin-top:10px;font-size:.92rem;max-width:460px}
+
+  /* ---------- 页脚 ---------- */
+  footer{background:#080c15;border-top:1px solid var(--line);padding:64px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
+  .foot-brand p{font-size:.82rem;color:var(--muted);margin-top:14px;max-width:290px}
+  .foot-col h4{font-size:.86rem;margin-bottom:16px;letter-spacing:.5px}
+  .foot-col a{display:block;font-size:.82rem;color:var(--muted);margin-bottom:10px;transition:color .2s}
+  .foot-col a:hover{color:var(--primary)}
+  .foot-bottom{
+    margin-top:48px;padding-top:22px;border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:.78rem;color:var(--muted);
+  }
+  .foot-bottom .links{display:flex;gap:20px}
+
+  /* ---------- 滚动动画 ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- 响应式 ---------- */
+  @media(max-width:1024px){
+    .hero-inner{grid-template-columns:1fr;gap:44px}
+    .hero-visual{max-width:520px}
+    .entry-grid{grid-template-columns:repeat(2,1fr)}
+    .features-grid{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .metrics-inner{grid-template-columns:1fr;gap:40px}
+    .comm-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:680px){
+    nav.links{display:none}
+    .nav-cta{display:none}
+    .menu-btn{display:block}
+    .hero{padding:56px 0 48px}
+    .hero-stats{gap:22px}
+    .entry-grid{grid-template-columns:1fr}
+    .features-grid{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+    .metric-block{grid-template-columns:1fr 1fr}
+    .cta-box{padding:32px}
+    .foot-grid{grid-template-columns:1fr}
+    .mobile-open nav.links{
+      display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;
+      background:#0b0f1a;border-bottom:1px solid var(--line);padding:20px 4%;gap:16px;
+    }
+  }
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">
+      <span class="logo-mark">HX</span>
+      <span class="logo-text">hxc 导航<small>FREE REDIRECT</small></span>
+    </a>
+    <nav class="links">
+      <a href="#entries">精选入口</a>
+      <a href="#features">核心特性</a>
+      <a href="#metrics">性能表现</a>
+      <a href="#community">社区动态</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <a class="nav-cta" href="#entries">立即跳转</a>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <span class="badge"><i class="dot"></i>服务在线 · 平均响应 38ms</span>
+        <h1>hxc免费跳转网页入口</h1>
+        <p class="hero-sub">把常用站点、热门工具与社区精选收进同一个轻量入口。一次点击，直达目标页面，不绕路、不等待、不收费。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#entries">浏览全部入口 →</a>
+          <a class="btn btn-ghost" href="#features">了解运作方式</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>1,280+</b><span>已收录入口</span></div>
+          <div class="stat"><b>99.96%</b><span>跳转可用率</span></div>
+          <div class="stat"><b>0 元</b><span>永久免费使用</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <span class="float-tag">极速直达</span>
+        <div class="jump-card">
+          <div class="jump-head">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <span>hxc.redirect / 快捷面板</span>
+          </div>
+          <div class="jump-input">
+            <code>https://hxc-entry.example/go</code>
+            <span class="go">跳转</span>
+          </div>
+          <div class="jump-list">
+            <div class="jump-item">
+              <span class="jump-icon" style="background:#39c6ff">站</span>
+              <div><b>常用门户聚合</b><small>一站直达多个资讯入口</small></div>
+              <span class="status">● 畅通</span>
+            </div>
+            <div class="jump-item">
+              <span class="jump-icon" style="background:#6a7cff">工</span>
+              <div><b>在线工具集</b><small>转换、压缩、格式处理</small></div>
+              <span class="status">● 畅通</span>
+            </div>
+            <div class="jump-item">
+              <span class="jump-icon" style="background:#37e0a3">学</span>
+              <div><b>学习资源入口</b><small>教程、文档与知识库</small></div>
+              <span class="status">● 畅通</span>
+            </div>
+            <div class="jump-item">
+              <span class="jump-icon" style="background:#ffb545">趣</span>
+              <div><b>社区精选</b><small>每日更新的轻量推荐</small></div>
+              <span class="status">● 畅通</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 精选入口 -->
+  <section class="entries" id="entries">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-kicker">Curated Entries</span>
+        <h2>精选跳转入口，按需直达</h2>
+        <p>我们持续维护每一类入口的可用性，所有跳转均基于轻量中转，不改变你的目标地址，也不会插入额外内容。</p>
+      </div>
+
+      <div class="filter-bar reveal">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="tool">工具</button>
+        <button class="filter-btn" data-filter="learn">学习</button>
+        <button class="filter-btn" data-filter="life">生活</button>
+        <button class="filter-btn" data-filter="dev">开发</button>
+      </div>
+
+      <div class="entry-grid" id="entryGrid">
+        <article class="entry-card reveal" data-cat="tool">
+          <div class="entry-top">
+            <span class="entry-ico" style="background:linear-gradient(135deg,#39c6ff,#6a7cff)">转换</span>
+            <div><h3>格式转换中心</h3><span class="cat">TOOL · 高频</span></div>
+          </div>
+          <p>图片、音视频、文档格式一键转换，支持批量处理与参数微调，跳转后即可使用。</p>
+          <div class="entry-foot"><span>更新于今天</span><a class="entry-go" href="#entries">进入 →</a></div>
+        </article>
+
+        <article class="entry-card reveal" data-cat="learn">
+          <div class="entry-top">
+            <span class="entry-ico" style="background:linear-gradient(135deg,#37e0a3,#39c6ff)">文档</span>
+            <div><h3>开发者文档库</h3><span class="cat">LEARN · 必看</span></div>
+          </div>
+          <p>聚合主流框架与语言的官方文档镜像入口，帮助你在一个页面内快速切换查阅。</p>
+          <div class="entry-foot"><span>更新于 2 小时前</span><a class="entry-go" href="#entries">进入 →</a></div>
+        </article>
+
+        <article class="entry-card reveal" data-cat="life">
+          <div class="entry-top">
+            <span class="entry-ico" style="background:linear-gradient(135deg,#ffb545,#ff7a59)">生活</span>
+            <div><h3>生活服务速达</h3><span class="cat">LIFE · 便民</span></div>
+          </div>
+          <p>出行、缴费、查询类常用服务入口合集，减少搜索步骤，把时间留给真正重要的事。</p>
+          <div class="entry-foot"><span>更新于昨天</span><a class="entry-go" href="#entries">进入 →</a></div>
+        </article>
+
+        <article class="entry-card reveal" data-cat="dev">
+          <div class="entry-top">
+            <span class="entry-ico" style="background:linear-gradient(135deg,#6a7cff,#b06aff)">开发</span>
+            <div><h3>调试与测试工具</h3><span class="cat">DEV · 效率</span></div>
+          </div>
+          <p>接口调试、正则测试、编码转换等常用开发工具统一入口，随时可跳转调用。</p>
+          <div class="entry-foot"><span>更新于 3 小时前</span><a class="entry-go" href="#entries">进入 →</a></div>
+        </article>
+
+        <article class="entry-card reveal" data-cat="tool">
+          <div class="entry-top">
+            <span class="entry-ico" style="background:linear-gradient(135deg,#39c6ff,#37e0a3)">图片</span>
+            <div><h3>在线图像处理</h3><span class="cat">TOOL · 轻量</span></div>
+          </div>
+          <p>压缩、裁剪、加水印与格式转换的浏览器端工具入口，无需安装，跳转即用。</p>
+          <div class="entry-foot"><span>更新于今天</span><a class="entry-go" href="#entries">进入 →</a></div>
+        </article>
+
+        <article class="entry-card reveal" data-cat="learn">
+          <div class="entry-top">
+            <span class="entry-ico" style="background:linear-gradient(135deg,#ff7a59,#ffb545)">课程</span>
+            <div><h3>公开课学习入口</h3><span class="cat">LEARN · 系统</span></div>
+          </div>
+          <p>精选公开课与专题课程直达页，涵盖入门到进阶，适合按主题快速筛选学习。</p>
+          <div class="entry-foot"><span>更新于 5 小时前</span><a class="entry-go" href="#entries">进入 →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 特性 -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-kicker">Why HXC</span>
+        <h2>为什么选择 hxc 跳转入口</h2>
+        <p>我们专注做一件事：让每一次网页跳转都足够快、足够稳、足够干净。</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat reveal">
+          <div class="feat-ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39c6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          </div>
+          <h3>毫秒级响应</h3>
+          <p>轻量中转架构配合边缘节点调度，跳转请求在毫秒级完成解析与重定向。</p>
+        </div>
+        <div class="feat reveal">
+          <div class="feat-ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39c6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3>安全透明</h3>
+          <p>不修改目标地址内容，不注入脚本，跳转链路可追溯，来源清晰可查。</p>
+        </div>
+        <div class="feat reveal">
+          <div class="feat-ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39c6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <h3>全天候可用</h3>
+          <p>多活部署与健康检查机制，异常入口自动摘除，保障入口列表长期稳定。</p>
+        </div>
+        <div class="feat reveal">
+          <div class="feat-ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#39c6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          </div>
+          <h3>持续更新</h3>
+          <p>社区共建的入口清单每日更新，热门工具与新兴服务会及时补充进列表。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 性能 -->
+  <section class="metrics" id="metrics">
+    <div class="wrap metrics-inner">
+      <div class="reveal">
+        <span class="sec-kicker">Performance</span>
+        <h2 style="font-size:clamp(1.5rem,3vw,2rem);font-weight:800;line-height:1.35">看得见的稳定性与速度</h2>
+        <p style="color:var(--muted);margin-top:14px;font-size:.94rem">跳转服务运行在分布式节点之上，所有指标均来自实时监测，覆盖全国主要网络环境。</p>
+        <div class="metric-list" style="margin-top:30px">
+          <div>
+            <div class="metric-row"><span class="label">跳转成功率</span><span class="val">99.96%</span></div>
+            <div class="bar"><i data-w="99.96"></i></div>
+          </div>
+          <div>
+            <div class="metric-row"><span class="label">入口健康度</span><span class="val">98.7%</span></div>
+            <div class="bar"><i data-w="98.7"></i></div>
+          </div>
+          <div>
+            <div class="metric-row"><span class="label">节点覆盖率</span><span class="val">96.2%</span></div>
+            <div class="bar"><i data-w="96.2"></i></div>
+          </div>
+          <div>
+            <div class="metric-row"><span class="label">用户满意度</span><span class="val">97.4%</span></div>
+            <div class="bar"><i data-w="97.4"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="metric-block reveal">
+        <div class="metric-card"><b>38ms</b><span>平均响应</span></div>
+        <div class="metric-card"><b>1280+</b><span>入口总数</span></div>
+        <div class="metric-card"><b>24/7</b><span>持续监测</span></div>
+        <div class="metric-card"><b>0</b><span>使用成本</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 流程 -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-kicker">How It Works</span>
+        <h2>四步完成一次干净利落的跳转</h2>
+        <p>没有冗余步骤，也不需要注册账号，打开页面即可开始。</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div class="line"></div><h3>选择分类</h3><p>在精选入口中按工具、学习、生活或开发分类快速筛选目标入口。</p></div>
+        <div class="step reveal"><div class="line"></div><h3>点击直达</h3><p>点击入口卡片即可发起跳转，中转层自动匹配最近可用节点。</p></div>
+        <div class="step reveal"><div class="line"></div><h3>校验目标</h3><p>跳转前会进行基础可达性检测，避免进入失效页面浪费你的时间。</p></div>
+        <div class="step reveal"><div class="line"></div><h3>稳定访问</h3><p>若入口出现异常，可返回列表选择备用线路，整个过程无需额外操作。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 社区 -->
+  <section class="community" id="community">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-kicker">Community</span>
+        <h2>社区共建的入口清单</h2>
+        <p>每一条推荐都来自真实使用与反馈，我们珍视每一个让入口更好用的建议。</p>
+      </div>
+      <div class="comm-grid">
+        <div class="reveal">
+          <div class="post">
+            <div class="avatar" style="background:linear-gradient(135deg,#39c6ff,#6a7cff)">林</div>
+            <div class="post-body">
+              <h4>「开发工具」分类终于齐全了</h4>
+              <p>之前收藏夹里散落着十几个工具站，现在一个入口页就够，跳转速度也明显更快。</p>
+              <div class="post-meta"><span>开发 · 用户</span><span>2 小时前</span><span>赞同 128</span></div>
+            </div>
+          </div>
+          <div class="post">
+            <div class="avatar" style="background:linear-gradient(135deg,#37e0a3,#39c6ff)">周</div>
+            <div class="post-body">
+              <h4>建议增加「备用线路」标注</h4>
+              <p>部分入口在移动网络下偶有波动，加上备用线路提示会更安心，已提交反馈。</p>
+              <div class="post-meta"><span>产品建议</span><span>5 小时前</span><span>赞同 76</span></div>
+            </div>
+          </div>
+          <div class="post">
+            <div class="avatar" style="background:linear-gradient(135deg,#ffb545,#ff7a59)">陈</div>
+            <div class="post-body">
+              <h4>每天都会打开一次</h4>
+              <p>把它设成浏览器主页之后，查资料、找工具、看文档几乎都在一个页面解决。</p>
+              <div class="post-meta"><span>日常使用</span><span>昨天</span><span>赞同 214</span></div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="side-panel reveal">
+          <h3>热门标签</h3>
+          <p class="sub">基于近期访问与收藏趋势生成</p>
+          <div class="tag-cloud">
+            <span>一键直达</span><span>轻量导航</span><span>免费入口</span>
+            <span>工具合集</span><span>文档速查</span><span>社区推荐</span>
+            <span>极速跳转</span><span>备用线路</span><span>每日更新</span>
+            <span>无广告</span>
+          </div>
+          <h3 style="margin-top:6px">入口更新提醒</h3>
+          <p class="sub">留个邮箱，有重要入口变动时通知你。</p>
+          <form class="notify" id="notifyForm">
+            <input type="email" placeholder="you@example.com" required aria-label="邮箱">
+            <button type="submit">订阅</button>
+          </form>
+          <p style="font-size:.72rem;color:var(--muted);margin-top:12px" id="notifyMsg">仅用于入口更新通知，不会发送营销内容。</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-kicker">FAQ</span>
+        <h2>关于免费跳转的常见疑问</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-q">hxc免费跳转网页入口真的完全免费吗？<span class="plus">+</span></button>
+          <div class="faq-a"><p>是的，本页所有入口均免费使用，不收取跳转费用、不强制注册，也不会在跳转过程中插入付费环节。</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q">跳转时会修改我访问的目标页面吗？<span class="plus">+</span></button>
+          <div class="faq-a"><p>不会。中转层只做地址解析与重定向，不修改目标页面内容，也不向页面注入额外脚本。</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q">遇到入口打不开怎么办？<span class="plus">+</span></button>
+          <div class="faq-a"><p>可以返回入口列表选择同类备用入口，或通过订阅提醒获取最新可用地址。我们会在监测到异常后尽快替换。</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q">可以推荐新的入口吗？<span class="plus">+</span></button>
+          <div class="faq-a"><p>非常欢迎。社区成员可以通过页面反馈渠道提交入口建议，经审核通过后会加入对应分类。</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q">是否支持移动端访问？<span class="plus">+</span></button>
+          <div class="faq-a"><p>支持。页面采用响应式布局，手机、平板与桌面浏览器均可正常浏览和跳转。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="wrap">
+      <div class="cta-box reveal">
+        <div>
+          <h2>把 hxc 设为你的跳转起点</h2>
+          <p>一个页面，收好所有常用入口。下次找工具、查文档、看资源，从这里直接出发。</p>
+        </div>
+        <a class="btn btn-primary" href="#entries">开始使用 →</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top">
+          <span class="logo-mark">HX</span>
+          <span class="logo-text">hxc 导航<small>FREE REDIRECT</small></span>
+        </a>
+        <p>轻量、免费、稳定的网页跳转入口平台，聚合常用站点与工具，让每一次直达都简单一点。</p>
+      </div>
+      <div class="foot-col">
+        <h4>产品</h4>
+        <a href="#entries">精选入口</a>
+        <a href="#features">核心特性</a>
+        <a href="#metrics">性能表现</a>
+        <a href="#faq">常见问题</a>
+      </div>
+      <div class="foot-col">
+        <h4>社区</h4>
+        <a href="#community">动态与反馈</a>
+        <a href="#community">提交入口</a>
+        <a href="#community">更新提醒</a>
+      </div>
+      <div class="foot-col">
+        <h4>支持</h4>
+        <a href="#faq">使用帮助</a>
+        <a href="#faq">跳转说明</a>
+        <a href="#top">返回顶部</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2025 hxc免费跳转网页入口 · 轻量导航服务</span>
+      <div class="links"><a href="#faq">服务条款</a><a href="#faq">隐私说明</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 移动端菜单
+  const menuBtn = document.getElementById('menuBtn');
+  const header = document.querySelector('header');
+  menuBtn?.addEventListener('click', () => {
+    header.classList.toggle('mobile-open');
+  });
+  document.querySelectorAll('nav.links a').forEach(a => {
+    a.addEventListener('click', () => header.classList.remove('mobile-open'));
+  });
+
+  // 滚动出现动画
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 进度条动画
+  const barIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar i').forEach(b => {
+          b.style.width = b.dataset.w + '%';
+        });
+        barIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const metricsSection = document.getElementById('metrics');
+  if (metricsSection) barIO.observe(metricsSection);
+
+  // 入口筛选
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.entry-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(card => {
+        const show = f === 'all' || card.dataset.cat === f;
+        card.style.display = show ? '' : 'none';
+        if (show) {
+          card.classList.remove('in');
+          requestAnimationFrame(() => card.classList.add('in'));
+        }
+      });
+    });
+  });
+
+  // FAQ 折叠
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!open) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // 订阅表单
+  const form = document.getElementById('notifyForm');
+  const msg = document.getElementById('notifyMsg');
+  form?.addEventListener('submit', e => {
+    e.preventDefault();
+    const input = form.querySelector('input');
+    if (input.value.trim()) {
+      msg.textContent = '订阅成功，入口更新时会第一时间通知你。';
+      msg.style.color = '#37e0a3';
+      input.value = '';
+    }
+  });
+
+  // 随机跳转体验：点击入口卡片演示跳转反馈
+  cards.forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.entry-go')) {
+        e.preventDefault();
+        const go = card.querySelector('.entry-go');
+        const origin = go.textContent;
+        go.textContent = '正在跳转…';
+        setTimeout(() => { go.textContent = origin; }, 1200);
+      }
+    });
+  });
+</script>
+</body>
+</html>
